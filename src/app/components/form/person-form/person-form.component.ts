@@ -28,7 +28,7 @@ export class PersonFormComponent implements OnInit, OnDestroy, OnChanges {
       console.log('people count is: '+this.peopleCount)
       // Make sure not to try to change before formGroup is defined
       if(changes['peopleCount'].currentValue && this.personForm) {
-        this.patchFormValue('id', this.peopleCount);
+        this.patchFormValue('id', this.peopleCount + 1);
       }
     }
   }
@@ -64,7 +64,7 @@ export class PersonFormComponent implements OnInit, OnDestroy, OnChanges {
 
     // Lets make sure we have passed the value before patching
     if(this.peopleCount) {
-      this.patchFormValue('id', this.peopleCount);
+      this.patchFormValue('id', this.peopleCount + 1);
     } else {
       this.patchFormValue('id', 1);
     }
