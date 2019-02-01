@@ -31,7 +31,6 @@ export class FormComponent implements OnInit {
 
   // Add/Change person
   savePerson(person: Person) {
-    console.log(person)
     let findPersonIndex = this.people.findIndex(p=> p.id === person.id);
     if(findPersonIndex > -1) {
       this.people[findPersonIndex] = person;
@@ -42,7 +41,6 @@ export class FormComponent implements OnInit {
 
   // Remove person
   removePerson(id: number) {
-    console.log(id)
     let newPeople = this.people.filter(p=> p.id != id);
     this.people = newPeople;
   }
