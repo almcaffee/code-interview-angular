@@ -25,7 +25,6 @@ export class PersonFormComponent implements OnInit, OnDestroy, OnChanges {
   // When we emit the person to save the array size will change patch the new id value to the form
   ngOnChanges(changes: SimpleChanges) {
     if(changes['peopleCount']) {
-      console.log('people count is: '+this.peopleCount)
       // Make sure not to try to change before formGroup is defined
       if(changes['peopleCount'].currentValue && this.personForm) {
         this.patchFormValue('id', this.peopleCount + 1);
@@ -40,7 +39,6 @@ export class PersonFormComponent implements OnInit, OnDestroy, OnChanges {
 
   // Test minimal validation then emit to parent
   savePerson() {
-    console.log(this.personForm.value)
     if(this.personForm.valid) {
       this.savedPerson.emit(this.personForm.value);
       this.personForm.reset();
@@ -70,9 +68,9 @@ export class PersonFormComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     // Subscribe to the form changes
-    this.subs.push(this.personForm.valueChanges.subscribe(value=> {
-      console.log(value)
-    }));
+    // this.subs.push(this.personForm.valueChanges.subscribe(value=> {
+    //   console.log(value)
+    // }));
   }
 
 }
