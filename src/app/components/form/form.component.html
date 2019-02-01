@@ -1,0 +1,4 @@
+<div class="App">
+  <app-person-form [peopleCount]="people.length" (savedPerson)="savePerson($event)"></app-person-form>
+  <app-person-table [people]="people" (removedPerson)="removePerson($event)" (savedPerson)="savePerson($event)"></app-person-table>
+</div>
