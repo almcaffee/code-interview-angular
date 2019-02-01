@@ -14,7 +14,7 @@
       <input type="text" formControlName="city" id="city">
     </div>
     <div class="submit-btn">
-      <button type="submit" id="submit-btn" [class.disabled]="!personForm.valid" [disabled]="!personForm.valid" (click)="savePerson()">Add Person</button>
+      <button type="submit" class="lg btn-save" [class.disabled]="!personForm.valid" [disabled]="!personForm.valid" (click)="savePerson()">Add Person</button>
     </div>
   </form>
 </div>

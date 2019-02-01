@@ -37,12 +37,10 @@ export class PersonTableComponent implements OnInit, OnDestroy {
     this.subs.forEach(s=> s.unsubscribe());
   }
 
-  // Test minimal validation then emit to parent
-  savePerson() {
-    if(this.personForm.valid) {
-      this.savedPerson.emit(this.personForm.value);
-      this.personForm.reset();
-    }
+  // Cancel the active edit
+  cancelEdit() {
+    this.activePerson = null;
+    this.personForm = null;
   }
 
   // Set state variable to initialize input row render
@@ -53,6 +51,15 @@ export class PersonTableComponent implements OnInit, OnDestroy {
   // Emit id of person to remove to parent
   removePerson(id: number) {
     this.removedPerson.emit(id);
+    if(this.activePerson) this.cancelEdit();
+  }
+
+  // Test minimal validation then emit to parent
+  savePerson() {
+    if(this.personForm.valid) {
+      this.savedPerson.emit(this.personForm.value);
+      this.personForm.reset();
+    }
   }
 
   // Initialize reactive form
