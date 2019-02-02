@@ -29,7 +29,7 @@ export class PersonFormComponent implements OnInit, OnDestroy {
     this.subs.forEach(s=> s.unsubscribe());
   }
 
-  // Test minimal validation then emit to parent
+  // Test minimal call service add fn
   addPerson() {
     if(this.personForm.valid) {
       this.ps.addPerson(this.personForm.value);

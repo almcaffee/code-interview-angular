@@ -29,7 +29,7 @@ export class PersonTableComponent implements OnInit, OnDestroy {
     .unsubscribe();
   }
 
-  // Clear subscriptions form memory
+  // Clear subscriptions from memory
   ngOnDestroy() {
     this.subs.forEach(s=> s.unsubscribe());
   }
@@ -47,13 +47,13 @@ export class PersonTableComponent implements OnInit, OnDestroy {
     this.setupForm(person);
   }
 
-  // Emit id of person to remove to parent
+  // Call service remove fn
   removePerson(id: number) {
     this.ps.removePerson(id);
     if(this.activePerson) this.cancelEdit();
   }
 
-  // Test minimal validation then call service to save
+  // Test minimal validation then call service save fn
   savePerson() {
     if(this.personForm.valid) {
       this.ps.savePerson(this.personForm.value);
