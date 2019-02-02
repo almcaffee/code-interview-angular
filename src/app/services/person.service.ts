@@ -16,29 +16,25 @@ export class PersonService {
     { id: 5, firstName: 'Jimmy', lastName: 'Butler', city: 'Philly' }
   ];
 
-  peopleSubject = new Subject<Person[]>();
+  private activeEditSubject = new Subject<boolean>();
+  activeEditSub$ = this.activeEditSubject.asObservable();
+  private peopleSubject = new Subject<Person[]>();
   peopleSub$ = this.peopleSubject.asObservable();
 
   constructor() {}
-
-  // getPeople() {
-  //   this.peopleSubject.next(this.people);
-  // }
 
   getPeople(): Observable<Person[]> {
     return of(this.people);
   }
 
-  // Add/Change person
+  // Add person
   addPerson(person: Person) {
     this.people.push(Object.assign(person, { id: this.people[this.people.length - 1].id + 1 }));
     this.peopleSubject.next(this.people);
   }
 
-  // Add/Change person
-  savePerson(person: Person) {
-    this.people[this.people.findIndex(p=> p.id === person.id)] = person;
-    this.peopleSubject.next(this.people);
+  editMode(editing: boolean) {
+    this.activeEditSubject.next(editing);
   }
 
   // Remove person
@@ -47,5 +43,11 @@ export class PersonService {
     this.peopleSubject.next(this.people);
   }
 
+  // Change person
+  savePerson(person: Person) {
+    this.people[this.people.findIndex(p=> p.id === person.id)] = person;
+    this.peopleSubject.next(this.people);
+    this.editMode(false);
+  }
 
 }

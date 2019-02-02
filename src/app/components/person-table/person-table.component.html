@@ -13,9 +13,15 @@
       <ng-container *ngFor="let p of people">
         <tr *ngIf="p === activePerson; else elseBlock" [formGroup]="personForm">
           <td>{{ p.id }}</td>
-          <td><input type="text" name="firstName" id="firstName" formControlName="firstName" /></td>
-          <td><input type="text" name="lastName" id="lastName" formControlName="lastName" /></td>
-          <td><input type="text" name="city" id="city" formControlName="city" /></td>
+          <td>
+            <input type="text" name="firstName" id="firstName" formControlName="firstName" />
+          </td>
+          <td>
+            <input type="text" name="lastName" id="lastName" formControlName="lastName" />
+          </td>
+          <td>
+            <input type="text" name="city" id="city" formControlName="city" />
+          </td>
           <td>
             <button class="btn-save" (click)="savePerson()">Save</button>
             <button class="btn-can" (click)="cancelEdit()">Cancel</button>

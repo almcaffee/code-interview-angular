@@ -23,6 +23,7 @@ export class PersonTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Get the current people let subscription replace people
     this.ps.getPeople()
     .subscribe(people=> this.people = people)
     .unsubscribe();
@@ -37,10 +38,12 @@ export class PersonTableComponent implements OnInit, OnDestroy {
   cancelEdit() {
     this.activePerson = null;
     this.personForm = null;
+    this.ps.editMode(false);
   }
 
   // Set state variable to initialize input row render
   editPerson(person: Person) {
+    this.ps.editMode(true);
     this.setupForm(person);
   }
 

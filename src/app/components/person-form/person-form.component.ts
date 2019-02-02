@@ -11,10 +11,14 @@ import { PersonService } from '@services/person.service';
 })
 export class PersonFormComponent implements OnInit, OnDestroy {
 
+  editing: boolean;
   personForm: FormGroup;
   subs: Subscription[] = [];
 
-  constructor(private ps: PersonService) { }
+  constructor(private ps: PersonService) {
+    // Service lets us know when array of people changes
+    this.subs.push(this.ps.activeEditSub$.subscribe(editing => this.editing = editing));
+  }
 
   ngOnInit() {
     this.setupForm();
