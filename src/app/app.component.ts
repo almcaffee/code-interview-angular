@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormComponent } from './components/form/form.component';
+import { PersonFormComponent } from '@components/person-form/person-form.component';
+import { PersonTableComponent } from '@components/person-table/person-table.component';
 
 @Component({
   selector: 'app-root',

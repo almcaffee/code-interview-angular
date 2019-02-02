@@ -16,6 +16,7 @@
     "paths": {
       "@components/*": ["src/app/components/*"],
       "@models*": ["src/app/models/"],
+      "@services/*": ["src/app/services/*"],
     },
     "lib": [
       "es2018",

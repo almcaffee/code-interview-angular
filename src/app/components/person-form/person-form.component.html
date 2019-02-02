@@ -1,6 +1,5 @@
 <div *ngIf="personForm" class="person-form">
   <form [formGroup]="personForm">
-    <input type="hidden" formControlName="id" [value]="peopleCount">
     <div>
       <label for="firstName">First Name</label>
       <input type="text" formControlName="firstName" id="firstName">
@@ -14,7 +13,7 @@
       <input type="text" formControlName="city" id="city">
     </div>
     <div class="submit-btn">
-      <button type="submit" class="lg btn-save" [class.disabled]="!personForm.valid" [disabled]="!personForm.valid" (click)="savePerson()">Add Person</button>
+      <button type="submit" class="lg btn-save" [class.disabled]="!personForm.valid" [disabled]="!personForm.valid" (click)="addPerson()">Add Person</button>
     </div>
   </form>
 </div>

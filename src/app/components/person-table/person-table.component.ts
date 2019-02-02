@@ -1,7 +1,9 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, pipe } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { Person } from '@models';
+import { PersonService } from '@services/person.service';
 
 @Component({
   selector: 'app-person-table',
@@ -10,29 +12,23 @@ import { Person } from '@models';
 })
 export class PersonTableComponent implements OnInit, OnDestroy {
 
-  @Output() removedPerson = new EventEmitter<number>();
-  @Output() savedPerson = new EventEmitter<Person>();
-  @Input() people: Person[];
-
   activePerson: Person;
   personForm: FormGroup;
+  people: Person[];
   subs: Subscription[] = [];
 
-  constructor() { }
+  constructor(private ps: PersonService) {
+    // Service lets us know when array of people changes
+    this.subs.push(this.ps.peopleSub$.subscribe(people => this.people = people));
+  }
 
   ngOnInit() {
+    this.ps.getPeople()
+    .subscribe(people=> this.people = people)
+    .unsubscribe();
   }
 
-  // When we emit the person to save the array size will change patch the new id value to the form
-  ngOnChanges(changes: SimpleChanges) {
-    if(changes['people']) {
-      // Make sure not to try to change before formGroup is defined
-      if(changes['people'].currentValue) {
-        console.log(this.people);
-      }
-    }
-  }
-
+  // Clear subscriptions form memory
   ngOnDestroy() {
     this.subs.forEach(s=> s.unsubscribe());
   }
@@ -50,14 +46,14 @@ export class PersonTableComponent implements OnInit, OnDestroy {
 
   // Emit id of person to remove to parent
   removePerson(id: number) {
-    this.removedPerson.emit(id);
+    this.ps.removePerson(id);
     if(this.activePerson) this.cancelEdit();
   }
 
-  // Test minimal validation then emit to parent
+  // Test minimal validation then call service to save
   savePerson() {
     if(this.personForm.valid) {
-      this.savedPerson.emit(this.personForm.value);
+      this.ps.savePerson(this.personForm.value);
       this.personForm.reset();
     }
   }
