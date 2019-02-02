@@ -33,6 +33,7 @@ export class PersonService {
     this.peopleSubject.next(this.people);
   }
 
+  // Is a person being edited in the table?
   editMode(editing: boolean) {
     this.activeEditSubject.next(editing);
   }
