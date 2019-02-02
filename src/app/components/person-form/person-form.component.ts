@@ -16,7 +16,7 @@ export class PersonFormComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   constructor(private ps: PersonService) {
-    // Service lets us know when array of people changes
+    // Service lets us know when person is being edit, disable add button
     this.subs.push(this.ps.activeEditSub$.subscribe(editing => this.editing = editing));
   }
 
